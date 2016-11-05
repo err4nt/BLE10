@@ -7,7 +7,33 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
+    <Page.Resources>
+        <DataTemplate x:Key="DeviceListItemTemplate" x:DataType="local:ItemModel">
+            <StackPanel>
+                <TextBlock Style="{ThemeResource TitleTextBlockStyle}" Text="{x:Bind MAC}" />
+                <TextBlock Text="{x:Bind rssi}" />
+            </StackPanel>
+        </DataTemplate>
+    </Page.Resources>
+    
+    <Grid x:Name="LayoutRoot" Loaded="LayoutRoot_Loaded" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition x:Name="MasterColumn" Width="320" />
+            <ColumnDefinition x:Name="DetailColumn" Width="*" />
+        </Grid.ColumnDefinitions>
+        <ListView
+            x:Name="DeviceListView"
+            Grid.Row="1"
+            ItemTemplate="{StaticResource DeviceListItemTemplate}">
+            <ListView.ItemContainerStyle>
+            <Style TargetType="ListViewItem">
+                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            </Style>
+            </ListView.ItemContainerStyle>
+        </ListView>
     </Grid>
 </Page>
